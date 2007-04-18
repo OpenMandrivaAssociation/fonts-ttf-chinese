@@ -1,6 +1,5 @@
-%define version 0.1
-%define snapshotdate 20060928
-%define release %mkrel -c %{snapshotdate} 1
+%define version 0.1.20060928
+%define release %mkrel 1
 %define epoch 1
 
 
@@ -18,8 +17,8 @@ Epoch:		%{epoch}
 #Source5:	http://www.study-area.org/apt/firefly-font/fireflysung-1.3.0.tar.bz2
 Source6:	cidinst.chinese
 Source7:	cidunin.chinese
-Source10:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.%{snapshotdate}.orig.tar.gz
-Source11:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-uming_%{version}.%{snapshotdate}.orig.tar.gz
+Source10:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
+Source11:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-uming_%{version}.orig.tar.gz
 
 URL:		http://www.freedesktop.org/wiki/Software_2fCJKUnifonts
 License:	Arphic Public License
@@ -51,19 +50,19 @@ and HKSCS(Hong Kong) glyphs done by Akar et. al.
 %build
 mkdir doc
 # prevent name clash
-cp ttf-arphic-ukai-%{version}.%snapshotdate/README doc/README-ukai
-cp ttf-arphic-uming-%{version}.%snapshotdate/README doc/README-uming
-cp ttf-arphic-ukai-%{version}.%snapshotdate/CONTRIBUTERS ttf-arphic-ukai-%{version}.%{snapshotdate}/*.xdelta ttf-arphic-uming-%{version}.%{snapshotdate}/*.xdelta doc/
+cp ttf-arphic-ukai-%{version}/README doc/README-ukai
+cp ttf-arphic-uming-%{version}/README doc/README-uming
+cp ttf-arphic-ukai-%{version}/CONTRIBUTERS ttf-arphic-ukai-%{version}/*.xdelta ttf-arphic-uming-%{version}/*.xdelta doc/
 
 %install
 rm -fr %{buildroot}
 
 install -d %{buildroot}/%{_datadir}/fonts/TTF/chinese/
-install -m 644 ttf-arphic-ukai-%{version}.%{snapshotdate}/ukai.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
-install -m 644 ttf-arphic-uming-%{version}.%{snapshotdate}/uming.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
+install -m 644 ttf-arphic-ukai-%{version}/ukai.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
+install -m 644 ttf-arphic-uming-%{version}/uming.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
 
 # merge fonts.alias
-cat ttf-arphic-ukai-%{version}.%{snapshotdate}/fonts.alias ttf-arphic-uming-%{version}.%{snapshotdate}/fonts.alias > %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
+cat ttf-arphic-ukai-%{version}/fonts.alias ttf-arphic-uming-%{version}/fonts.alias > %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
 
 # ghost files
 %if %mdkversion <= 200600
