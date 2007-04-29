@@ -2,7 +2,6 @@
 %define release %mkrel 1
 %define epoch 1
 
-
 Summary:	Unified Chinese True Type font
 Name:		fonts-ttf-chinese
 Version:	%{version}
@@ -31,9 +30,6 @@ Obsoletes:	fonts-ttf-big5
 Provides:	fonts-ttf-big5 = %{epoch}:%{version}-%{release}
 Obsoletes:	fonts-ttf-gb2312
 Provides:	fonts-ttf-gb2312 = %{epoch}:%{version}-%{release}
-# pull in old fonts, for compatilibity
-# FW: This is not needed for Mandriva 2007
-# Requires:	fonts-ttf-chinese-compat
 
 %description
 Chinese True Type font covering both tranditional and simplified chinese,
@@ -64,10 +60,6 @@ install -m 644 ttf-arphic-uming-%{version}/uming.ttf %{buildroot}/%{_datadir}/fo
 # merge fonts.alias
 cat ttf-arphic-ukai-%{version}/fonts.alias ttf-arphic-uming-%{version}/fonts.alias > %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
 
-# ghost files
-%if %mdkversion <= 200600
-touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.cache-1
-%endif
 touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
 
 %post
@@ -95,8 +87,3 @@ rm -fr %{buildroot}
 %dir %{_datadir}/fonts/TTF/chinese/
 %{_datadir}/fonts/TTF/chinese/*.ttf
 %{_datadir}/fonts/TTF/chinese/fonts.alias
-%if %mdkversion <= 200600
-%ghost %{_datadir}/fonts/TTF/chinese/fonts.cache-1
-%endif
-
-
