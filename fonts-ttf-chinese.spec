@@ -1,5 +1,5 @@
 %define version 0.1.20060928
-%define release %mkrel 1
+%define release %mkrel 2
 %define epoch 1
 
 Summary:	Unified Chinese True Type font
@@ -24,8 +24,8 @@ License:	Arphic Public License
 Group:		System/Fonts/True type
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%name-%version-%release-root
-Requires(post): chkfontpath, mkfontdir, mkfontscale, fontconfig
-Requires(postun): chkfontpath, mkfontdir, mkfontscale, fontconfig
+Requires(post): mkfontdir, mkfontscale, fontconfig
+Requires(postun): mkfontdir, mkfontscale, fontconfig
 Obsoletes:	fonts-ttf-big5
 Provides:	fonts-ttf-big5 = %{epoch}:%{version}-%{release}
 Obsoletes:	fonts-ttf-gb2312
@@ -62,15 +62,18 @@ cat ttf-arphic-ukai-%{version}/fonts.alias ttf-arphic-uming-%{version}/fonts.ali
 
 touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
 
+mkdir -p %{buildroot}%_sysconfdir/X11/fontpath.d/
+ln -s ../../..%_datadir/fonts/TTF/chinese \
+    %{buildroot}%_sysconfdir/X11/fontpath.d/ttf-chinese:pri=50
+
+
 %post
-[ -x %{_sbindir}/chkfontpath ] && %{_sbindir}/chkfontpath -q -a %{_datadir}/fonts/TTF/chinese
 [ -x %{_bindir}/mkfontdir ] && %{_bindir}/mkfontdir %{_datadir}/fonts/TTF/chinese
 [ -x %{_bindir}/mkfontscale ] && %{_bindir}/mkfontscale %{_datadir}/fonts/TTF/chinese
 [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
 
 %postun
 if [ "$1" = "0" ]; then
-  [ -x %{_sbindir}/chkfontpath ] && %{_sbindir}/chkfontpath -q -r %{_datadir}/fonts/TTF/chinese
   [ -x %{_bindir}/mkfontdir ] && %{_bindir}/mkfontdir %{_datadir}/fonts/TTF/chinese
   [ -x %{_bindir}/mkfontscale ] && %{_bindir}/mkfontscale %{_datadir}/fonts/TTF/chinese
   [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
@@ -82,8 +85,7 @@ rm -fr %{buildroot}
 %files
 %defattr(0644,root,root,0755)
 %doc doc/*
-%dir %{_datadir}/fonts/
-%dir %{_datadir}/fonts/TTF/
 %dir %{_datadir}/fonts/TTF/chinese/
 %{_datadir}/fonts/TTF/chinese/*.ttf
 %{_datadir}/fonts/TTF/chinese/fonts.alias
+%{_sysconfdir}/X11/fontpath.d/ttf-chinese:pri=50
