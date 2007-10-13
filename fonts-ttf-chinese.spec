@@ -1,5 +1,5 @@
 %define version 0.1.20060928
-%define release %mkrel 2
+%define release %mkrel 3
 %define epoch 1
 
 Summary:	Unified Chinese True Type font
@@ -24,8 +24,8 @@ License:	Arphic Public License
 Group:		System/Fonts/True type
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%name-%version-%release-root
-Requires(post): mkfontdir, mkfontscale, fontconfig
-Requires(postun): mkfontdir, mkfontscale, fontconfig
+Requires(post): fontconfig
+Requires(postun): fontconfig
 Obsoletes:	fonts-ttf-big5
 Provides:	fonts-ttf-big5 = %{epoch}:%{version}-%{release}
 Obsoletes:	fonts-ttf-gb2312
@@ -50,17 +50,30 @@ cp ttf-arphic-ukai-%{version}/README doc/README-ukai
 cp ttf-arphic-uming-%{version}/README doc/README-uming
 cp ttf-arphic-ukai-%{version}/CONTRIBUTERS ttf-arphic-ukai-%{version}/*.xdelta ttf-arphic-uming-%{version}/*.xdelta doc/
 
+# merge fonts.dir
+grep uming.ttf ttf-arphic-uming-%{version}/fonts.dir > fonts.dir.prepare
+grep ukai.ttf ttf-arphic-ukai-%{version}/fonts.dir >> fonts.dir.prepare
+wc -l fonts.dir.prepare |awk -F' ' '{print $1}' > fonts.dir
+cat fonts.dir.prepare >> fonts.dir
+
+# merge fonts.scale
+grep uming.ttf ttf-arphic-uming-%{version}/fonts.scale > fonts.scale.prepare
+grep ukai.ttf ttf-arphic-ukai-%{version}/fonts.scale >> fonts.scale.prepare
+wc -l fonts.scale.prepare |awk -F' ' '{print $1}' > fonts.scale
+cat fonts.scale.prepare >> fonts.scale
+
 %install
 rm -fr %{buildroot}
 
 install -d %{buildroot}/%{_datadir}/fonts/TTF/chinese/
 install -m 644 ttf-arphic-ukai-%{version}/ukai.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
 install -m 644 ttf-arphic-uming-%{version}/uming.ttf %{buildroot}/%{_datadir}/fonts/TTF/chinese/
+install -m 644 fonts.dir fonts.scale %{buildroot}/%{_datadir}/fonts/TTF/chinese/
 
 # merge fonts.alias
 cat ttf-arphic-ukai-%{version}/fonts.alias ttf-arphic-uming-%{version}/fonts.alias > %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
 
-touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.alias
+touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.*
 
 mkdir -p %{buildroot}%_sysconfdir/X11/fontpath.d/
 ln -s ../../..%_datadir/fonts/TTF/chinese \
@@ -68,14 +81,10 @@ ln -s ../../..%_datadir/fonts/TTF/chinese \
 
 
 %post
-[ -x %{_bindir}/mkfontdir ] && %{_bindir}/mkfontdir %{_datadir}/fonts/TTF/chinese
-[ -x %{_bindir}/mkfontscale ] && %{_bindir}/mkfontscale %{_datadir}/fonts/TTF/chinese
 [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
 
 %postun
 if [ "$1" = "0" ]; then
-  [ -x %{_bindir}/mkfontdir ] && %{_bindir}/mkfontdir %{_datadir}/fonts/TTF/chinese
-  [ -x %{_bindir}/mkfontscale ] && %{_bindir}/mkfontscale %{_datadir}/fonts/TTF/chinese
   [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
 fi
 
@@ -86,6 +95,5 @@ rm -fr %{buildroot}
 %defattr(0644,root,root,0755)
 %doc doc/*
 %dir %{_datadir}/fonts/TTF/chinese/
-%{_datadir}/fonts/TTF/chinese/*.ttf
-%{_datadir}/fonts/TTF/chinese/fonts.alias
+%{_datadir}/fonts/TTF/chinese/*
 %{_sysconfdir}/X11/fontpath.d/ttf-chinese:pri=50
