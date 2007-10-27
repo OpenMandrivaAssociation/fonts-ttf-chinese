@@ -8,18 +8,12 @@ Version:	%{version}
 Release:	%{release}
 Epoch:		%{epoch}
 
-#Source0:	ftp://linux.tmtc.edu.tw/pub/arphic/fonts-ttf-chinese.tar.bz2
-#Source1:	cidinst.gb2312
-#Source2:	cidunin.gb2312
-#Source3:	cidinst.big5
-#Source4:	cidunin.big5
-#Source5:	http://www.study-area.org/apt/firefly-font/fireflysung-1.3.0.tar.bz2
 Source6:	cidinst.chinese
 Source7:	cidunin.chinese
 Source10:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
 Source11:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-uming_%{version}.orig.tar.gz
 
-URL:		http://www.freedesktop.org/wiki/Software_2fCJKUnifonts
+URL:		http://www.freedesktop.org/wiki/Software/CJKUnifonts
 License:	Arphic Public License
 Group:		System/Fonts/True type
 BuildArch:	noarch
