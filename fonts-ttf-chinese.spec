@@ -1,5 +1,5 @@
 %define version 0.2.20080216.1
-%define release %mkrel 3
+%define release %mkrel 4
 %define epoch 1
 
 Summary:	Unified Chinese True Type font
@@ -74,7 +74,7 @@ install -m 644 fonts.dir fonts.scale %{buildroot}/%{_datadir}/fonts/TTF/chinese/
 mkdir -p %buildroot%_sysconfdir/fonts/conf.d/
 install -m 644 ttf-arphic-ukai/35-ttf-arphic-ukai-aliases.conf %buildroot%_sysconfdir/fonts/conf.d/
 install -m 644 ttf-arphic-uming/35-ttf-arphic-uming-aliases.conf %buildroot%_sysconfdir/fonts/conf.d/
-install -m 644 ttf-arphic-uming/25-ttf-arphic-uming-bitmaps.conf %buildroot%_sysconfdir/fonts/conf.d/
+install -m 644 ttf-arphic-uming/25-ttf-arphic-uming-bitmaps.conf %buildroot%_sysconfdir/fonts/conf.d/99-ttf-arphic-uming-bitmaps.conf
 
 touch %{buildroot}%{_datadir}/fonts/TTF/chinese/fonts.*
 
