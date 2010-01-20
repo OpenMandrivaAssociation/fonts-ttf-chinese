@@ -1,5 +1,5 @@
 %define version 0.2.20080216.1
-%define release %mkrel 5
+%define release %mkrel 6
 %define epoch 1
 
 Summary:	Unified Chinese True Type font
@@ -18,8 +18,6 @@ License:	Arphic Public License
 Group:		System/Fonts/True type
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%name-%version-%release-root
-Requires(post): fontconfig
-Requires(postun): fontconfig
 Obsoletes:	fonts-ttf-big5
 Provides:	fonts-ttf-big5 = %{epoch}:%{version}-%{release}
 Obsoletes:	fonts-ttf-gb2312
@@ -81,14 +79,6 @@ mkdir -p %{buildroot}%_sysconfdir/X11/fontpath.d/
 ln -s ../../..%_datadir/fonts/TTF/chinese \
     %{buildroot}%_sysconfdir/X11/fontpath.d/ttf-chinese:pri=50
 
-
-%post
-[ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
-
-%postun
-if [ "$1" = "0" ]; then
-  [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache 
-fi
 
 %clean
 rm -fr %{buildroot}
