@@ -17,6 +17,7 @@ URL:		http://www.freedesktop.org/wiki/Software/CJKUnifonts
 License:	Arphic Public License
 Group:		System/Fonts/True type
 BuildArch:	noarch
+BuildRequires: fontconfig
 BuildRoot:	%{_tmppath}/%name-%version-%release-root
 Obsoletes:	fonts-ttf-big5
 Provides:	fonts-ttf-big5 = %{epoch}:%{version}-%{release}
