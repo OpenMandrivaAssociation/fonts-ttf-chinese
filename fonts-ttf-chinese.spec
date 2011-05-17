@@ -1,5 +1,5 @@
 %define version 0.2.20080216.1
-%define release %mkrel 8
+%define release %mkrel 9
 %define epoch 1
 
 Summary:	Unified Chinese True Type font
