@@ -1,0 +1,27 @@
+#!/bin/sh
+
+
+# gs-cjk uses the TTF font to print CJK files.
+# Now we remove the fonts from ghostscript 6.51.
+#
+# 2005-01-07 pablo@mandrakesoft.com -- new file
+
+if [ -x /usr/share/ghostscript/Resource/alias-ac10.sh ]; then
+    cd /usr/share/ghostscript/Resource
+    ./alias-ac10.sh uninstall B5Song-Medium
+    ./alias-ac10.sh uninstall AR-PL-New-Sung
+    ./alias-ac10.sh uninstall ShanHeiSun-Light
+    # MSung-Light and MKai-Medium are the names used by qt/kde.
+    ./alias-ac10.sh uninstall MSung-Light
+    ./alias-ac10.sh uninstall MOESung-Regular
+fi
+
+if [ -x /usr/share/ghostscript/Resource/alias-ag10.sh ]; then
+    cd /usr/share/ghostscript/Resource
+    ./alias-ag10.sh uninstall GBSong-Medium
+    ./alias-ag10.sh uninstall AR-PL-New-Sung
+    ./alias-ag10.sh uninstall BousungEG-Light-GB
+    ./alias-ag10.sh uninstall MSung-Light
+	# used by mozilla/gaelon
+    ./alias-ag10.sh uninstall MSungGBK-Light
+fi

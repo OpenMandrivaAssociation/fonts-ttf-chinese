@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# gs-cjk uses TTF fonts to print CJK files. 
+# We register the fonts to ghostscript 6.51.
+#
+# 2005-01-07 pablo@mandrakesoft.com -- new file
+
+# traditional chinese
+if [ -x /usr/share/ghostscript/Resource/alias-ac10.sh ]; then
+    cd /usr/share/ghostscript/Resource
+    ./alias-ac10.sh install B5Song-Medium=uming.ttf
+    # that is the real name reported by the ttf file
+    ./alias-ac10.sh install ShanHeiSun-Light=uming.ttf
+    # for compatibility, alias to the name of the previously used font
+    ./alias-ac10.sh install AR-PL-New-Sung=B5Song-Medium
+    # MSung-Light and MOESung-Light are the font names used by qt/kde.
+    ./alias-ac10.sh install MSung-Light=B5Song-Medium
+    ./alias-ac10.sh install MOESung-Regular=B5Song-Medium
+fi
+
+# simplified chinese
+if [ -x /usr/share/ghostscript/Resource/alias-ag10.sh ]; then
+    cd /usr/share/ghostscript/Resource
+    ./alias-ag10.sh install GBSong-Medium=uming.ttf
+    # for compatibility, alias to the name of the previously used font
+    ./alias-ag10.sh install AR-PL-New-Sung=GBSong-Medium
+    #
+    ./alias-ag10.sh install BousungEG-Light-GB=GBSong-Medium
+    # MSung-Light is the font names used by qt/kde.
+    ./alias-ag10.sh install MSung-Light=GBSong-Medium
+    # used by mozilla/gaelon
+    ./alias-ag10.sh install MSungGBK-Light=GBSong-Medium
+fi
