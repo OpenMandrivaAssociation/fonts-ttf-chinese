@@ -2,7 +2,7 @@ Summary:	Unified Chinese True Type font
 Name:		fonts-ttf-chinese
 Epoch:		1
 Version:	0.2.20080216.1
-Release:	11
+Release:	12
 License:	Arphic Public License
 Group:		System/Fonts/True type
 Url:		http://www.freedesktop.org/wiki/Software/CJKUnifonts
