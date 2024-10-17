@@ -5,7 +5,7 @@ Version:	0.2.20080216.1
 Release:	21
 License:	Arphic Public License
 Group:		System/Fonts/True type
-Url:		http://www.freedesktop.org/wiki/Software/CJKUnifonts
+Url:		https://www.freedesktop.org/wiki/Software/CJKUnifonts
 Source6:	cidinst.chinese
 Source7:	cidunin.chinese
 Source10:	http://apt.debian.org.tw/pool/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
